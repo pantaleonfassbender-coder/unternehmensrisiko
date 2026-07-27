@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unternehmensrisiko-Analyse (KI-gestützt)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background-effects">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+    </div>
+
+    <main class="container">
+        <header class="glass-panel">
+            <h1>Risiko-Radar <span class="badge">KI Powered</span></h1>
+            <p>Automatische 360°-Risikoanalyse auf Basis von Google News, Trends & Arbeitgeberplattformen.</p>
+            
+            <form id="search-form" class="search-box">
+                <input type="text" id="company-input" placeholder="Firmenname eingeben (z.B. Volkswagen, Tesla)" required autocomplete="off">
+                <button type="submit" id="analyze-btn">
+                    <span class="btn-text">Analyse starten</span>
+                    <span class="spinner hidden"></span>
+                </button>
+            </form>
+        </header>
+
+        <!-- Methodology / how it works (shown until an analysis is started) -->
+        <section id="intro-section" class="glass-panel intro-section">
+            <h2>So funktioniert die Auswertung</h2>
+            <p class="intro-lead">Geben Sie einen Firmennamen ein &ndash; die KI führt anschließend eine strukturierte 360°-Risikorecherche durch. Der Ablauf im Detail:</p>
+            <ol class="intro-steps">
+                <li><strong>Identitätsprüfung &amp; Live-Websuche:</strong> Vor der Risikoanalyse gleicht das KI-Modell Rechtsform, Sitz, Branche und offizielle Domain ab. Eindeutige Namensvetter werden ausgeschlossen; Arbeitgeberprofile von Kununu und Glassdoor werden bewusst großzügiger zugeordnet, damit mehr Treffer einfließen.</li>
+                <li><strong>Themen &amp; Stichworte:</strong> Die 10 wichtigsten Themen des Unternehmens werden aus der Recherche extrahiert und als Stichworte dargestellt.</li>
+                <li><strong>Risikobewertung:</strong> Sieben Risikofelder werden auf einer Skala von 0 (kein Risiko) bis 10 (existenzbedrohend) bewertet &ndash; darunter Geopolitik, Reputation, Wirtschaftskriminalität, <em>Kriminalität &amp; Einbruch</em>, Proteste, Terrorismus und Innentäterrisiko.</li>
+                <li><strong>SWOT &amp; Gesamturteil:</strong> Aus den Befunden werden Stärken, Schwächen, Chancen und Risiken sowie ein zusammenfassendes KI-Urteil abgeleitet.</li>
+                <li><strong>Belegte Quellen:</strong> Die zur Antwort gehörenden Grounding-Quellen werden am Ende verlinkt, damit jede Einschätzung nachvollziehbar bleibt.</li>
+            </ol>
+            <p class="intro-disclaimer">Hinweis: Die Ergebnisse sind KI-gestützte Einschätzungen auf Basis öffentlicher Quellen und ersetzen keine professionelle Sicherheits- oder Rechtsberatung. Da die Zuordnung von Arbeitgeberbewertungen (Kununu, Glassdoor) nun großzügiger erfolgt, sollten die verlinkten Profile und die daraus abgeleiteten Mitarbeiterindikatoren vor einer Verwendung stets manuell auf die korrekte Unternehmenszuordnung überprüft werden.</p>
+        </section>
+
+        <div id="loading-state" class="hidden">
+            <div class="status-box glass-panel">
+                <div class="radar-spinner"></div>
+                <h3 id="status-text">Initiiere KI-Recherche...</h3>
+                <p>Durchsuche das Web der letzten 12 Monate nach relevanten Ereignissen.</p>
+            </div>
+        </div>
+
+        <div id="results-container" class="hidden">
+            <div class="grid-layout">
+
+                <section class="glass-panel identity-section">
+                    <h2>Geprüfte Unternehmensidentität</h2>
+                    <dl class="identity-grid">
+                        <div><dt>Name</dt><dd id="identity-name"></dd></div>
+                        <div><dt>Sitz</dt><dd id="identity-headquarters"></dd></div>
+                        <div><dt>Website</dt><dd id="identity-website"></dd></div>
+                        <div><dt>Branche</dt><dd id="identity-industry"></dd></div>
+                    </dl>
+                    <p id="identity-verification" class="section-hint"></p>
+                </section>
+                
+                <!-- Keywords Section -->
+                <section class="glass-panel keywords-section">
+                    <h2>Top 10 Stichworte (letzte 12 Monate)</h2>
+                    <div id="keywords-container" class="keywords-cloud">
+                        <!-- Keywords will be injected here -->
+                    </div>
+                </section>
+
+                <!-- Risk Scores Section -->
+                <section class="glass-panel risks-section">
+                    <h2>Risikobewertung</h2>
+                    <div class="risk-bars">
+                        <div class="risk-item">
+                            <div class="risk-label"><span>Geopolitik</span><span class="score" id="score-geo">0/10</span></div>
+                            <div class="progress-bar"><div class="progress-fill" id="fill-geo"></div></div>
+                            <p class="risk-reason" id="reason-geo"></p>
+                        </div>
+                        <div class="risk-item">
+                            <div class="risk-label"><span>Reputation</span><span class="score" id="score-rep">0/10</span></div>
+                            <div class="progress-bar"><div class="progress-fill" id="fill-rep"></div></div>
+                            <p class="risk-reason" id="reason-rep"></p>
+                        </div>
+                        <div class="risk-item">
+                            <div class="risk-label"><span>Unternehmenskriminalität</span><span class="score" id="score-crime">0/10</span></div>
+                            <div class="progress-bar"><div class="progress-fill" id="fill-crime"></div></div>
+                            <p class="risk-reason" id="reason-crime"></p>
+                        </div>
+                        <div class="risk-item">
+                            <div class="risk-label"><span>Kriminalität &amp; Einbruch</span><span class="score" id="score-burglary">0/10</span></div>
+                            <div class="progress-bar"><div class="progress-fill" id="fill-burglary"></div></div>
+                            <p class="risk-reason" id="reason-burglary"></p>
+                        </div>
+                        <div class="risk-item">
+                            <div class="risk-label"><span>Konsumentenproteste</span><span class="score" id="score-protest">0/10</span></div>
+                            <div class="progress-bar"><div class="progress-fill" id="fill-protest"></div></div>
+                            <p class="risk-reason" id="reason-protest"></p>
+                        </div>
+                        <div class="risk-item">
+                            <div class="risk-label"><span>Terrorismus (Links/Rechts)</span><span class="score" id="score-terror">0/10</span></div>
+                            <div class="progress-bar"><div class="progress-fill" id="fill-terror"></div></div>
+                            <p class="risk-reason" id="reason-terror"></p>
+                        </div>
+                        <div class="risk-item">
+                            <div class="risk-label"><span>Mitarbeiterindikatoren (eindeutig zugeordnet)</span><span class="score" id="score-insider">0/10</span></div>
+                            <div class="progress-bar"><div class="progress-fill" id="fill-insider"></div></div>
+                            <p class="risk-reason" id="reason-insider"></p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SWOT Analysis Section -->
+                <section class="glass-panel swot-section">
+                    <h2>SWOT-Analyse (Risikoposition)</h2>
+                    <div class="swot-grid">
+                        <div class="swot-box strength">
+                            <h3>Stärken (Strengths)</h3>
+                            <ul id="swot-s"></ul>
+                        </div>
+                        <div class="swot-box weakness">
+                            <h3>Schwächen (Weaknesses)</h3>
+                            <ul id="swot-w"></ul>
+                        </div>
+                        <div class="swot-box opportunity">
+                            <h3>Chancen (Opportunities)</h3>
+                            <ul id="swot-o"></ul>
+                        </div>
+                        <div class="swot-box threat">
+                            <h3>Risiken (Threats)</h3>
+                            <ul id="swot-t"></ul>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="glass-panel summary-section">
+                    <h2>Zusammenfassendes KI-Urteil</h2>
+                    <p id="ai-summary"></p>
+                </section>
+
+                <!-- In-text references (numbered citations used in the analysis) -->
+                <section class="glass-panel references-section">
+                    <h2>Referenzen (im Text zitiert)</h2>
+                    <p class="section-hint">Die im Analysetext mit [Nummer] markierten Belege. Klicken Sie eine Nummer im Text an, um zur passenden Quelle zu springen.</p>
+                    <ol id="references-list" class="sources-list">
+                        <!-- References will be injected here -->
+                    </ol>
+                    <p id="references-empty" class="section-hint hidden">Die KI hat für diese Analyse keine nummerierten Referenzen ausgewiesen.</p>
+                </section>
+
+                <!-- Grounded Sources Section -->
+                <section class="glass-panel sources-section">
+                    <h2>Belegte Quellen (Google Search Grounding)</h2>
+                    <p class="section-hint">Grounding-Quellen, die Textpassagen der Recherche stützen. Namensvetter werden inhaltlich ausgeschlossen.</p>
+                    <ol id="sources-list" class="sources-list">
+                        <!-- Sources will be injected here -->
+                    </ol>
+                    <p id="sources-empty" class="section-hint hidden">Für diese Anfrage wurden von der KI keine verlinkbaren Quellen zurückgegeben.</p>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 &ndash; Dr. Pantaleon Fassbender &ndash; <a href="mailto:leo@twistersmanagementconsultingllc.com">leo@twistersmanagementconsultingllc.com</a></p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

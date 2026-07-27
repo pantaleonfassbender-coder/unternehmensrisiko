@@ -1,0 +1,12 @@
+{
+  "name": "risk-analysis-app",
+  "version": "1.0.0",
+  "description": "AI-powered risk analysis for Netlify Drop",
+  "scripts": {
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@google/genai": "^1.0.0",
+    "@netlify/blobs": "^8.1.0"
+  }
+}
