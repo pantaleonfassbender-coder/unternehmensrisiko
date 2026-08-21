@@ -6,3 +6,19 @@
   from = "/api/*"
   to = "/.netlify/functions/:splat"
   status = 200
+
+# Die Seite laedt nichts von Dritten nach; die Header halten das auch dann fest,
+# wenn spaeter jemand versehentlich eine CDN-Einbindung ergaenzt.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Die Schriftdateien aendern sich nicht; sie tragen einen Namen, der ihre
+# Teilmenge nennt, und duerfen lange im Cache stehen.
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

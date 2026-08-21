@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impressum &amp; Datenschutz &ndash; Unternehmensrisiko-Analyse</title>
+    <meta name="description" content="Anbieter, Kontakt und Datenschutzerklärung: was beim Start einer Analyse an Google übermittelt wird, was gespeichert wird und wie lange.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background-effects">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+    </div>
+
+    <main class="container">
+        <header class="glass-panel">
+            <h1>Impressum &amp; Datenschutz</h1>
+            <p>Wer diese Seite betreibt, was beim Start einer Analyse tatsächlich übertragen wird und was davon gespeichert bleibt.</p>
+        </header>
+
+        <section class="glass-panel intro-section">
+            <h2>Anbieter</h2>
+            <p class="intro-lead">
+                Dr. Pantaleon Fassbender<br>
+                16751 NE 5th Street<br>
+                Williston, FL 32696<br>
+                Vereinigte Staaten
+            </p>
+            <p>Kontakt: <a href="mailto:pantaleonfassbender@gmail.com">pantaleonfassbender@gmail.com</a><br>
+               Verantwortlich für den Inhalt dieser Seite.</p>
+            <p class="intro-disclaimer">
+                Dies ist ein privates, nicht&shy;kommerzielles Projekt. Es wird nichts verkauft, es wird
+                nicht geworben, und es besteht keine Geschäftsbeziehung zu den analysierten Unternehmen.
+                Die Angaben sind bewusst nicht nach § 5 DDG formuliert: Der Anbieter wohnt in Florida,
+                weshalb weder das DDG noch der MStV noch die EU-Plattform zur Online-Streitbeilegung
+                greifen. Die vollständige Anschrift steht hier trotzdem, weil ein Angebot, das
+                Risikoeinschätzungen über namentlich genannte Unternehmen ausgibt, erreichbar sein muss.
+            </p>
+        </section>
+
+        <section class="glass-panel intro-section">
+            <h2>Was beim Start einer Analyse passiert</h2>
+            <p class="intro-lead">
+                Der wichtigste Punkt zuerst, weil er sich von den meisten KI-Anwendungen unterscheidet:
+                <strong>Der von Ihnen eingegebene Firmenname wird nicht nur verarbeitet, sondern aktiv im
+                Web gesucht.</strong>
+            </p>
+            <ol class="intro-steps">
+                <li><strong>Übermittlung an Google.</strong> Die Analyse läuft über die Gemini-Schnittstelle
+                    von Google (Modell <code>gemini-2.5-flash</code>) mit aktivierter Google-Suche als
+                    Grounding. Der eingegebene Name wird dabei an Google übermittelt und als Suchanfrage
+                    verwendet &ndash; zusätzlich zu einer zweiten, gezielten Suche nach physischen
+                    Sicherheitsvorfällen. Empfänger ist Google; die Verarbeitung richtet sich nach den
+                    Bedingungen der Gemini API und schließt eine Übermittlung in die USA ein.</li>
+                <li><strong>Keine weiteren Daten.</strong> Übertragen wird ausschließlich der Inhalt des
+                    Eingabefelds. Es gibt kein Konto, keine Registrierung, kein zweites Feld und keinen
+                    Datei-Upload. Ihre IP-Adresse wird nicht an Google weitergereicht &ndash; die Anfrage
+                    stellt der Server, nicht Ihr Browser.</li>
+                <li><strong>Speicherung des Ergebnisses.</strong> Weil eine solche Recherche mehrere Minuten
+                    dauert, läuft sie im Hintergrund. Ergebnis, eingegebener Firmenname, Status und
+                    Zeitstempel werden dazu unter einer zufälligen Auftragskennung (UUID, Version 4) im
+                    Objektspeicher von Netlify abgelegt; Ihr Browser fragt diese Kennung so lange ab, bis
+                    die Analyse fertig ist.</li>
+            </ol>
+            <p class="intro-disclaimer">
+                <strong>Bitte geben Sie hier nichts ein, dessen Recherche Sie nicht wollen.</strong> Keine
+                internen Projektnamen, keine Vorhaben vor der Bekanntgabe, keine Betriebs- oder
+                Geschäftsgeheimnisse. Was Sie eintragen, wird zu einer Suchanfrage &ndash; und eine
+                Suchanfrage ist nicht zurückholbar.
+            </p>
+        </section>
+
+        <section class="glass-panel intro-section">
+            <h2>Keine Namen natürlicher Personen</h2>
+            <p class="intro-lead">
+                Das Eingabefeld erwartet einen Firmennamen, aber technisch lässt sich jeder Text
+                eintragen &ndash; und die Recherche sucht ausdrücklich nach Ermittlungen, Strafprozessen,
+                Urteilen und Wirtschaftskriminalität.
+            </p>
+            <p>
+                Auf eine natürliche Person angewandt, erzeugt dieses Werkzeug ein Persönlichkeitsprofil zu
+                Vorwürfen und Verfahren. Das ist ausdrücklich nicht der Zweck dieser Seite, und es wäre
+                datenschutzrechtlich unzulässig. Bitte geben Sie ausschließlich Unternehmen ein. Werden
+                Namen natürlicher Personen eingegeben, geschieht das in der Verantwortung der eingebenden
+                Person; der Anbieter wertet solche Eingaben nicht aus und wertet sie nicht weiter.
+            </p>
+        </section>
+
+        <section class="glass-panel intro-section">
+            <h2>Was gespeichert wird &ndash; und wie lange</h2>
+            <p class="intro-lead">
+                Gespeichert wird je Analyse ein Datensatz aus eingegebenem Firmennamen, Bearbeitungsstatus,
+                Zeitstempel und dem vollständigen Analyseergebnis. <strong>Eine automatische Löschung ist
+                derzeit nicht eingerichtet</strong>, diese Datensätze bleiben also bestehen, bis sie von
+                Hand entfernt werden. Das steht hier, weil es zutrifft, und nicht, weil es so bleiben soll.
+            </p>
+            <p>
+                Der Datensatz enthält keine Angabe zu Ihnen: keine IP-Adresse, keine Kennung Ihres Geräts,
+                keinen Zeitstempel Ihres Besuchs, nichts, woraus sich der Abruf einer Person zuordnen ließe.
+                Die Auftragskennung wird in Ihrem Browser zufällig erzeugt und ist nicht erratbar; wer sie
+                jedoch kennt, kann das zugehörige Ergebnis abrufen. Eine Übersicht aller Analysen gibt es
+                nicht und es führt kein Weg von einem Firmennamen zu einer Kennung.
+            </p>
+            <p class="intro-disclaimer">
+                Sie können die Löschung eines Ergebnisses verlangen. Da nichts Sie mit einer Kennung
+                verknüpft, ist dafür der eingegebene Firmenname und ungefähre Zeitpunkt hilfreich &ndash;
+                oder die Kennung selbst, sofern Sie sie noch haben.
+            </p>
+        </section>
+
+        <section class="glass-panel intro-section">
+            <h2>Was diese Seite nicht tut</h2>
+            <ol class="intro-steps">
+                <li><strong>Keine Cookies.</strong> Es wird keiner gesetzt, zu keinem Zweck.</li>
+                <li><strong>Kein Speicher im Browser.</strong> Kein Local Storage, kein Session Storage,
+                    keine IndexedDB.</li>
+                <li><strong>Keine Reichweitenmessung, kein Tracking.</strong> Kein Google Analytics, kein
+                    Tag Manager, kein Zählpixel, auch kein cookieloses Messskript.</li>
+                <li><strong>Nichts von Dritten nachgeladen.</strong> Stylesheet, Skript und Schrift kommen
+                    von dieser Domain. Die Schrift Inter lag bis zum 21. August 2026 bei Google Fonts,
+                    wodurch bei jedem Aufruf die Besucher-IP an Google ging; sie wird seither selbst
+                    ausgeliefert (<code>fonts/</code>, SIL Open Font License 1.1). Beim bloßen Aufruf der
+                    Seite erfährt kein Dritter etwas von Ihnen.</li>
+            </ol>
+        </section>
+
+        <section class="glass-panel intro-section">
+            <h2>Hosting und Server-Protokolle</h2>
+            <p>
+                Die Seite wird von Netlify, Inc. (San Francisco, Kalifornien, USA) ausgeliefert. Wie jeder
+                Webserver erhält deren Server, was Ihr Browser senden muss, damit eine Antwort möglich ist:
+                IP-Adresse, Zeitpunkt, aufgerufene Seite, gegebenenfalls die verweisende Seite sowie die
+                Browser- und Systemkennung. Das dient der Auslieferung und der Abwehr von Missbrauch und
+                wird vom Anbieter weder mit anderen Daten zusammengeführt noch zu Profilen verarbeitet.
+                Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Die Speicherdauer dieser Protokolle bestimmt
+                Netlify, nicht dieses Projekt.
+            </p>
+        </section>
+
+        <section class="glass-panel intro-section">
+            <h2>Ihre Rechte</h2>
+            <p>
+                Die DSGVO ist auf dieses Angebot über Art. 3 Abs. 2 anwendbar, weil es sich an Nutzer in der
+                Europäischen Union richtet. Sie haben das Recht auf Auskunft, Berichtigung, Löschung,
+                Einschränkung der Verarbeitung, Widerspruch und Datenübertragbarkeit hinsichtlich Sie
+                betreffender personenbezogener Daten. Wenden Sie sich dafür an die oben genannte Adresse.
+            </p>
+            <p>
+                Ein Vertreter nach Art. 27 DSGVO ist nicht benannt; in Anspruch genommen wird die Ausnahme
+                des Art. 27 Abs. 2 lit. a: Die Verarbeitung erfolgt gelegentlich, umfasst keine besonderen
+                Kategorien personenbezogener Daten und führt voraussichtlich zu keinem Risiko für die Rechte
+                und Freiheiten natürlicher Personen. Ihnen steht das Beschwerderecht bei der Aufsichtsbehörde
+                Ihres Wohnsitzlandes zu.
+            </p>
+        </section>
+
+        <section class="glass-panel intro-section">
+            <h2>Zu den Ergebnissen</h2>
+            <p>
+                Die ausgegebenen Bewertungen sind KI-gestützte Einschätzungen auf Basis öffentlich
+                zugänglicher Quellen. Sie können falsch sein: Das Modell kann eine Quelle missverstehen,
+                einen Vorgang übersehen oder eine Behauptung wiedergeben, die es hätte einordnen müssen.
+                Die Zuordnung von Arbeitgeberbewertungen (Kununu, Glassdoor) erfolgt bewusst großzügig,
+                damit mehr Treffer einfließen &ndash; die verlinkten Profile und die daraus abgeleiteten
+                Mitarbeiterindikatoren sind deshalb vor jeder Verwendung von Hand auf die richtige
+                Unternehmenszuordnung zu prüfen.
+            </p>
+            <p>
+                Nichts auf dieser Seite ist Rechts-, Sicherheits- oder Anlageberatung, und nichts davon ist
+                eine Aussage über die Kreditwürdigkeit oder Zuverlässigkeit eines Unternehmens im Sinne einer
+                Auskunftei. Die verlinkten Quellen stammen von Dritten; für deren Inhalte ist verantwortlich,
+                wer sie veröffentlicht, und sie werden nicht als eigene übernommen. Gestaltung und
+                redaktionelle Texte dieser Seite: &copy; 2026 Pantaleon Fassbender.
+            </p>
+        </section>
+
+        <footer class="site-footer">
+            <p>Stand: 21. August 2026 &ndash; <a href="index.html">Zurück zur Analyse</a></p>
+        </footer>
+    </main>
+</body>
+</html>
